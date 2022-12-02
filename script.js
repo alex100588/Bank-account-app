@@ -181,7 +181,7 @@ btnTransfer.addEventListener('click', function(e){
 
 btnClose.addEventListener('click', (e)=>{
   e.preventDefault()
-  console.log('deletes');
+  // console.log('deleted');
   if(inputCloseUsername.value === currentAccount.username &&
      +inputClosePin.value === currentAccount.pin){
       const index = accounts.findIndex(acc => acc.username === currentAccount.username)
@@ -190,6 +190,20 @@ btnClose.addEventListener('click', (e)=>{
       // Hide UI
       containerApp.style.opacity = 0
   }
-  inputCloseUsername = ''
-  inputClosePin = ''
+  inputCloseUsername.value = ''
+  inputClosePin.value = ''
 })
+
+// Request loan
+btnLoan.addEventListener('click', (e)=>{
+  e.preventDefault()
+
+  const amount = Number(inputLoanAmount.value)
+
+  if(amount > 0 && currentAccount.movements.some(mov => mov >= amount /100 * 0.1)){
+    currentAccount.movements.push(amount)
+    updateUi(currentAccount)
+  }
+inputLoanAmount.value = ''
+})
+
